@@ -2,31 +2,30 @@
 
 namespace Features_CSharp
 {
+    // Delegate
+    public delegate void Rectangle(double width, double height);
     class Delegate
     {
-        public delegate int Perform(int[] arr);
-        public static int sum(int[] arr)
+        public void getArea(double width, double height)
         {
-            int sum = 0;
-            foreach (int i in arr)
-            {
-                sum += i;
-            }
-            return sum;
+            Console.WriteLine($"Area of Rectangle: {width * height}");
         }
 
-        public static void processMath(int[] arr, Perform perform)
+        public void getPerimeter(double width, double height)
         {
-            perform(arr);
+            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
         }
     }
+
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr = { 1, 2, 3, 4 };
-            var logic = new Delegate.Perform(Delegate.sum);
-            Console.WriteLine(Delegate.sum(arr));
+            Delegate delegateClassObject = new Delegate();
+            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
+            rectangle += delegateClassObject.getPerimeter;
+
+            rectangle.Invoke(17.77, 40.22);
         }
     }
 }
