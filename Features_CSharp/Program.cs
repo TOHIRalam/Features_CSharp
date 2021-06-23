@@ -2,30 +2,37 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
-    {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
-
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
-    }
-
     class Program
     {
+        public enum Days
+        {
+            Sat,
+            Sun,
+            Mon, 
+            Tue = 13,
+            Wed, 
+            Thu,
+            Fri
+        }
+
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            /*
+             *  1. Enum is also known as enumeration
+             *  2. It is used to store named constants 
+             *  3. The enum constants are also known as enumerators
+             *  3. Enumrators has default values which starts from 0
+             *     and incrementd to one by one.
+             *  4. We can change the default value of enumrators
+            */
 
-            rectangle.Invoke(17.77, 40.22);
+            foreach (string str in Enum.GetNames(typeof(Days)))
+                Console.Write(str + " ");
+            Console.WriteLine("\n");
+            foreach (int i in Enum.GetValues(typeof(Days)))
+                Console.WriteLine(Enum.GetName(typeof(Days), i) + " = " + i);
+
+            Console.WriteLine("\nFriday is " + (int)Days.Fri);
         }
     }
 }
