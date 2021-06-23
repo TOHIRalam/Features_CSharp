@@ -2,30 +2,29 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
-    {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
-
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
-    }
 
     class Program
     {
         public void passByValue(int x)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            x = 50;
+        }
 
-            rectangle.Invoke(17.77, 40.22);
+        public void passByReference(ref int x)
+        {
+            x = 50;
+        }
+
+        public static void Main(string[] args)
+        {
+            // The ref keyword is used to pass or return references of values to or from methods.
+
+            int x = 5;
+            Console.WriteLine("Value of x: " + x);
+            new Program().passByValue(x);
+            Console.WriteLine("Value of x after pass by value: " + x);
+            new Program().passByReference(ref x);
+            Console.WriteLine("Value of x after pass by reference: " + x);
         }
     }
 }
