@@ -2,30 +2,26 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
+    static class MATH
     {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
+        public static int x { get; set; }
+        public static int y { get; set; }
 
-        public void getPerimeter(double width, double height)
+        public static int sum()
         {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
+            return x + y;
         }
     }
-
     class Program
     {
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            // Static class can't be instantiate and
+            // Static class can have only static members
 
-            rectangle.Invoke(17.77, 40.22);
+            MATH.x = 4;
+            MATH.y = 6;
+            Console.WriteLine("Sum: " + MATH.sum());
         }
     }
 }
