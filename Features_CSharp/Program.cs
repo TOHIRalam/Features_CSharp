@@ -2,30 +2,21 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
-    {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
-
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
-    }
-
     class Program
     {
+        public int sum(params int [] numbers)
+        {
+            int sum = 0;
+            foreach(var i in numbers) { sum += i; }
+            return sum;
+        }
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            // We can pass a variable number of arguments by using params keyword in methods
 
-            rectangle.Invoke(17.77, 40.22);
+            Program pr = new Program();
+            Console.WriteLine(pr.sum(1, 2, 3, 4));
+            Console.WriteLine(pr.sum(1, 2, 3, 4, 5, 6));
         }
     }
 }
