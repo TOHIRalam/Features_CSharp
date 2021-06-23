@@ -6,151 +6,74 @@ namespace Features_CSharp
 {
     class Program
     {
-        public static void printArr(int[] arr)
-        {
-            foreach (var i in arr)
-                Console.Write(i + " ");
-            Console.WriteLine();
-        }
-
         static void Main(string[] args)
         {
-            // One dimensional array
+            string str = "Hello World!";
+            Console.WriteLine("Hello World! starts with 'H': " + str.StartsWith('H') + "\nHello World! ends with '!': " + str.EndsWith('!') + "\n");
+
+            string str1 = "abcd";
+            string str2 = "abc";
+            Console.WriteLine("abcd > abc: " + str1.CompareTo(str2));               // Returns 1 because abcd is greater than abc
+            Console.WriteLine("abc < abcd: " + str2.CompareTo(str1));               // Returns -1 because abc is less than abcd
+            Console.WriteLine("abcd == abcd: " + str1.CompareTo("abcd"));           // Returns 0 because abcd is equal to abcd
+            Console.WriteLine("abcd < d: " + string.Compare(str1, "d"));            // Returns -1 as the first char in abcd is less than char d
+            Console.WriteLine("abcd > d: " + string.Compare("abcd", "ac"));         // Returns -1 as the second char in "ac" is greater than the second char in "abcd"
+            Console.WriteLine("abcd != abc: " + str1.Equals(str2) + "\n");          // Returns false as equals method check if the two string is matched or not
+
+
+            Console.WriteLine("abcd > abc: " + string.CompareOrdinal(str1, str2)); 
+            Console.WriteLine("abc < abcd: " + string.CompareOrdinal(str2, str1));  
+            Console.WriteLine("abcd == abcd: " + string.CompareOrdinal(str1, "abcd") + "\n"); 
+
+            string str3 = "abx";
+            string str4 = "abz";
+            Console.WriteLine("abx < abz: " + str3.CompareTo(str4)); 
+            Console.WriteLine("abz > abx: " + str4.CompareTo(str3));  
+            Console.WriteLine("abx == abx: " + str3.CompareTo("abx") + "\n");
+
+            Console.WriteLine("abx < abz: " + string.CompareOrdinal(str3, str4));  
+            Console.WriteLine("abz > abx: " + string.CompareOrdinal(str4, str3));  
+            Console.WriteLine("abz > abc: " + string.CompareOrdinal(str4, "abc") + "\n");  // Returns 23 as position of 'z' in English alphabet is 26 and 'c' is 3 so, 26 - 3 = 23 
+
+            Console.WriteLine("Concat str3, str4: " + string.Concat(str3, str4) + "\n");
+
+            string countries = "Bangladesh, India, Pakistan, Russia, Thailand";
+            Console.WriteLine("Check if countries string contains 'Russia': " + countries.Contains("Russia"));  // Contains method
+
+            Console.WriteLine("String format: " + String.Format("{0:D} | {1:d}", DateTime.Now, DateTime.Now));  // String.Format
+
+            Console.WriteLine("Index of India: " + countries.IndexOf("India"));                                 // IndexOf method
+            countries = countries.Insert(12, "Japan, ");
+            Console.WriteLine("After inserting another country: " + countries);
+
             int[] arr = { 1, 2, 3, 4 };
+            string arrString = string.Join(", ", arr);                                                          // Join method
+            Console.WriteLine("String representation of array: " + arrString);
+
+            Console.WriteLine("\nFirst index of 'a' in countires string: " + countries.IndexOf('a'));           // IndexOf method
+            Console.WriteLine("Last index of 'a' in countires string: " + countries.LastIndexOf('a'));          // LastIndexOf method
+
+            Console.WriteLine("Left padding to arrString: " + arrString.PadLeft(20));
+
+            string firstCountry = countries.Remove(10);                                                         // Remove method
+            Console.WriteLine("Remove everything after index 9 in countries string: " + firstCountry);
+            Console.WriteLine("Keep only first two country: " + countries.Remove(17, countries.Length-17));
             
-            // Two dimensional array
-            int[,] arr2 =
-            {
-                {1, 2, 3, 4 },
-                {3, 4, 5, 6 },
-                {5, 6, 7, 8 }
-            };
-
-            // Jagged array
-            int[][] arr3 =
-            {
-                new int[] {1, 2, 3, 4 },
-                new int[] {3, 4, 5, 6, 7, 8, 9 },
-                new int[] {5, 4, 3}
-            };
-
-            // Iterations
-            Console.WriteLine("One dimensional array:\n");
-            printArr(arr);
-
-            // 2D array iteration
-            Console.WriteLine("\nTwo dimensional array:\n");
-            for (int i = 0; i < arr2.GetLength(0); i++)
-            {
-                for (int j = 0; j < arr2.GetLength(1); j++)
-                {
-                    Console.Write(arr2[i, j] + " ");
-                }
-                Console.WriteLine();
-            }
-
-            // Jagged array iteration
-            Console.WriteLine("\nJagged array:\n");
-            for (int i = 0; i < arr3.Length; i ++)
-            {
-                for(int j = 0; j < arr3[i].Length; j++)
-                {
-                    Console.Write(arr3[i][j] + " ");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-
-
-            // Array properties and methods
-
-            // Reverse the array
-            Array.Reverse(arr);
-            Console.Write("Reversed Array: ");
-            printArr(arr);
-
-            // Sort the array
-            Array.Sort(arr);
-            Console.Write("Sorted Array: ");
-            foreach (var i in arr) { Console.Write(i + " "); }
-            Console.WriteLine();
-
-            // Dimension
-            int[,,,] arr4 = {
-                {
-                    {
-                        { 1, 2 }, { 1, 3 }
-                    },
-                    {
-                        { 3, 4 }, { 8, 9 }
-                    }
-                },
-                {
-                    {
-                        { 1, 5 }, { 8, 9 }
-                    },
-                    {
-                        { 3, 4 }, { 8, 9 }
-                    }
-                }
-            };
-            Console.WriteLine($"Dimensions of array4: {arr4.Rank}\narr4 length: {arr4.LongLength}");
+            countries = countries.Replace("Japan", "China");                                                    // Replace method
+            Console.WriteLine("After replacing 'Japan': " + countries);
             
-            // Binary search the array
-            Console.WriteLine($"The element 3 in the array arr1 exist. ({(Array.BinarySearch(arr, 1) >= 0)})");
-            Console.WriteLine($"The element 25 in the array arr1 exist. ({Array.BinarySearch(arr, 25) >= 0})\n\n");
+            string[] countriesArray = countries.Split(", ");                                                    // Split method
+            Console.Write("Countries string array: ");
+            foreach(var i in countriesArray) { Console.Write(i + " "); }
+            
+            countriesArray[0] = countriesArray[0].ToUpper();                                                    // ToUpper method
+            Console.WriteLine("\nUpper case string: " + countriesArray[0]);
 
-            // Binary search the array using IComparer 
-            int x = 6;
-            int[] arr5 = { 1, 3, 6, 8, 9, 10 };
-            int index = Array.BinarySearch(arr5, x, StringComparer.CurrentCulture);
-            if(index < 0)
-            {
-                Console.WriteLine("The element {0} does not exist in the array.\n" +
-                    "Next larger object is at index {1}", x, ~index);
-            }
-            else
-            {
-                Console.WriteLine("The element {0} exist in the array at index {1}", x, index);
-            }
+            string temp = "   Hello World   ";
+            Console.WriteLine("Normal String: " + temp);
 
-            x = 7;
-            index = Array.BinarySearch(arr5, x, StringComparer.CurrentCulture);
-            if (index < 0)
-            {
-                Console.WriteLine("The element {0} does not exist in the array.\n" +
-                    "Next larger object is at index {1}", x, ~index);
-            }
-            else
-            {
-                Console.WriteLine("The element {0} exist in the array at index {1}", x, index);
-            }
-
-            // Set the default value of the array to 0 from givenIndex to number of element from that index
-            Array.Clear(arr, 1, 3);
-            printArr(arr);
-
-            /*
-                This is not the way to copy an array to another array in c#.
-                If we assign an array to another array then both arrays will 
-                point to the same array of element. So, if we change one array
-                the difference will be created in another array.
-            */
-            /*arr = arr5;
-            arr[0] = 568;
-            Console.WriteLine(arr5[0]);*/
-
-            // Copy elements of one array to another
-            //arr.CopyTo(arr5, 0);
-            //printArr(arr5);
-
-            /// int[] arr5 = { 1, 3, 6, 8, 9, 10 };
-
-            // Find element of an array based on given predicate 
-            Console.WriteLine(Array.Find<int>(arr5, element => element > 6));
-
-            // Index of element that is greater than 6
-            Console.WriteLine(Array.IndexOf(arr5, Array.Find<int>(arr5, element => element > 6)));
+            temp = temp.Trim();
+            Console.WriteLine("After trim: " + temp);                                                           // Trim method
         }
     }
 }
