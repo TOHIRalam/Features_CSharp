@@ -19,7 +19,7 @@ namespace Features_CSharp
 
     class Program
     {
-        static void Main(string[] args)
+        public void passByValue(int x)
         {
             Delegate delegateClassObject = new Delegate();
             Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
