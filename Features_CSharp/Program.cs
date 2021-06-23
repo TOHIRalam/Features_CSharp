@@ -2,30 +2,26 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
-    {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
-
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
-    }
-
     class Program
     {
+        public int maxMinSum(out int x, out int y, params int[] arr)
+        {
+            x = arr[0];
+            y = arr[0];
+            for(int i = 1; i < arr.Length; i++)
+            {
+                x = (arr[i] > x) ? arr[i] : x;
+                y = (arr[i] < y) ? arr[i] : y;
+                arr[0] += arr[i];
+            }
+            return arr[0];
+        }
+
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
-
-            rectangle.Invoke(17.77, 40.22);
+            // By using out keyword we can return multiple values from methods
+            int x, y, sum = new Program().maxMinSum(out x, out y, 1, 2, 3, 4, 5);
+            Console.WriteLine($"Max: {x}\nMin: {y}\nSum: {sum}\n\n");
         }
     }
 }
