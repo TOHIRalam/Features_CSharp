@@ -2,30 +2,38 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
+    interface IMATH
     {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
+        int Sum(int x, int y);
+        int Sub(int x, int y);
+    }
 
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
+    interface ISTRING
+    {
+        string string_data(string funcName1, string funcName2);
+    }
+
+    class IMPL : IMATH, ISTRING
+    {
+        public int Sum(int x, int y) => x + y;
+        public int Sub(int x, int y) => x - y;
+        public string string_data(string funcName1, string funcName2) => $"{funcName1} and {funcName2} is: ";
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            /*
+             * 1. Interface is a completely abstract class which can only contain abstract methods and properties
+             * 2. Interface members are by default abstract and public
+             * 3. An interface can not contain a constructor.
+             * 4. C# does not support multiple inheritance, however it can be achieved with interface, because
+             *    the class can implement multiple interfaces. 
+             */
 
-            rectangle.Invoke(17.77, 40.22);
+            IMPL impl = new IMPL();
+            Console.Write(impl.string_data("Sum", "Sub") + impl.Sum(10, 8) + " and " + impl.Sub(12, 8));
         }
     }
 }
