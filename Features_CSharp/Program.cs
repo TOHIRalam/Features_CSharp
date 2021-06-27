@@ -54,9 +54,6 @@ namespace Features_CSharp
             InvokeDelegate(actionStringLambda, "tAsniMuL aLAm");
         }
 
-        public static void InvokeDelegate(Action<string> act, string str)
-        {
-            act.Invoke(str);
-        }
+        public static void InvokeDelegate(Action<string> act, string str) => act.Invoke(str);
     }
 }
