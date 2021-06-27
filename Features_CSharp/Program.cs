@@ -2,30 +2,45 @@
 
 namespace Features_CSharp
 {
-    // Delegate
-    public delegate void Rectangle(double width, double height);
-    class Delegate
-    {
-        public void getArea(double width, double height)
-        {
-            Console.WriteLine($"Area of Rectangle: {width * height}");
-        }
-
-        public void getPerimeter(double width, double height)
-        {
-            Console.WriteLine($"Perimeter of Rectangle: {2 * (width * height)}");
-        }
-    }
-
     class Program
     {
+        static bool isUpperCase(string str) => str.Equals(str.ToUpper());
+        static bool isLowercase(string str) => str.Equals(str.ToLower());
         static void Main(string[] args)
         {
-            Delegate delegateClassObject = new Delegate();
-            Rectangle rectangle = new Rectangle(delegateClassObject.getArea);
-            rectangle += delegateClassObject.getPerimeter;
+            /*
+             * 1. Predicate is the delegate like Func and Action delegates.
+             * 2. It works with those methods which contain some set of criteria and determine 
+             *    whether the passed parameter fulfill the given criteria or not.
+             * 3. A predicate delegate methods must take one input parameter and return a boolean - true or false
+             * 4. Signature: public delegate bool Predicate <in T>(T obj);
+             * 5. Predicate can also be used with any method, anonymous method, or lambda expression.
+             */
 
-            rectangle.Invoke(17.77, 40.22);
+            Predicate<string> isUpperCaseString = new Predicate<string>(isUpperCase);
+            Predicate<string> isLowerCaseString = new Predicate<string>(isLowercase);
+            string[] conditions = { "all uppercase", "all lowercase" };
+            InvokeDelegates("HELLO WORLD!", conditions, isUpperCaseString, isLowerCaseString);
+
+            // With anonymouse method
+            Predicate<int> isEvenNumber = delegate (int number)
+            {
+                return number % 2 == 0; 
+            };
+
+            // With lambda expression 
+            Predicate<int> isOddNumber = number => number % 2 != 0;
+
+            Console.WriteLine("Is 10 even number? {0}\n" +
+                "Is 10 odd number? {1}", isEvenNumber.Invoke(10), isOddNumber.Invoke(10));
+        }
+
+        public static void InvokeDelegates(string str, string[] conditionas, params Predicate<string>[] pred)
+        {
+            for(var i = 0; i < conditionas.Length; i++)
+            {
+                Console.WriteLine($"Is '{str}' {conditionas[i]}: {pred[i].Invoke(str)}");
+            }
         }
     }
 }
