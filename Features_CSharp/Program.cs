@@ -68,6 +68,6 @@ namespace Features_CSharp
             sb.Replace("Hello", "Hi");                  // Replace 'Hello' with 'Hi' 
 
             Console.WriteLine(sb.ToString());
-;        }
+        }
     }
 }
