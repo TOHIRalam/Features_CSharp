@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+using System.Globalization;
 
 namespace Features_CSharp
 {
@@ -8,8 +7,51 @@ namespace Features_CSharp
     {
         static void Main(string[] args)
         {
+
+            /*
+             * 1. The maximum size of a String object in memory is 2GB or about 1 billion character
+             * 2. Essentially there is no difference between String and string in C#
+             * 3. String is a class in the .NET framework in the System namespace whereas, 
+             *    the lower case string is an alias of System.String
+             * 4. We must import System namespace at the top of our .cs file to use String class
+             *    whereas string keyword can be used directly without any namespace
+             */
+
             string str = "Hello World!";
-            Console.WriteLine("Hello World! starts with 'H': " + str.StartsWith('H') + "\nHello World! ends with '!': " + str.EndsWith('!') + "\n");
+
+            // str.StartsWith() and str.EndsWith()
+
+            Console.WriteLine("Hello World! starts with 'H': " + str.StartsWith('H') + "\n" +
+                "Hello World! ends with '!': " + str.EndsWith('!') + "\n");
+
+            // A string is a collection or an array of character so, string can be created using char array
+            char[] charStr = { 'H', 'E', 'L', 'L', 'O' };
+            
+            string strChar = new string(charStr);
+            String strChar2 = new String(charStr);
+
+            // We can use escaping character \ (backslash) before these special character to include in a string
+            string myStr = "Hello \"World\"";
+
+            /*
+             * However, it will be very tedious to prefix \ for every special character. Prefixing the string
+             * with an @ indicates that it should be treated as a literal and should not escape any character.
+             */
+
+            string path = @"\\mypc\shared\project";
+            string email = @"test@test.com";
+
+            // We can also use @ to declare multi-line string
+
+            string multiLineString = @"this is a \
+                                        multi line \
+                                        string";
+
+            // String interpolation: Mixture of static string and string variables that are in between {} brackets
+            Console.WriteLine($"{multiLineString} #007");
+
+            // We have to use two {{}} to include { or } in a string
+            Console.WriteLine($"{{or}} #007");
 
             string str1 = "abcd";
             string str2 = "abc";
@@ -74,6 +116,61 @@ namespace Features_CSharp
 
             temp = temp.Trim();
             Console.WriteLine("After trim: " + temp);                                                           // Trim method
+
+
+            /*
+             * 
+             *                           Standard numeric format strings
+             *                          ---------------------------------
+             * 1. Standard numeric format strings are used to format common numeric types. 
+             * 2. A standard numeric format string takes the form [format specifier][precision specifier]
+             * 3. Format specifier: a single alphabetic character that specifies the type of number format
+             * 4. Precision specifier: it is an optional integer that affects the number of digits in the string
+             * 
+             */
+
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            // Currency
+
+            Console.WriteLine($"Dollar: {465.25654651}");
+            Console.WriteLine($"Japanese currency: {465.25654651.ToString("C3", CultureInfo.CreateSpecificCulture("jp-JP"))}");
+            
+            // Decimal
+
+            Console.WriteLine($"Six digit decimal: {45:D6}");
+
+            // Exponential
+
+            Console.WriteLine($"Exponential: {45.25654651:E2}");
+
+            // Integral and decimal digits
+
+            Console.WriteLine($"Four digit decimal: {4.25654651:F4}");
+
+            // Scientific notation
+
+            Console.WriteLine($"Fixed point or scientific notation: {43335.25654651:G4}");
+
+            // Integral and decimal digit group seperator
+
+            Console.WriteLine($"Integral and decimal digit group seperator: {45.25654651:N3}");
+
+            // Multiplied by 100 with percent symbol
+
+            Console.WriteLine($"Multiplied by 100 with percent Symbol: {45.25654651:P}");
+
+            /*
+             * The round-trip ("R") format specifier attempts to ensure that a numeric value 
+             * that is converted to a string is parsed back into the same numeric value.
+             */
+
+            Console.WriteLine($"The round-trip: {1234.24123451:R17}");
+
+            // Hexadecimal string
+
+            Console.WriteLine($"Hexadecimal String: {13:X4}");
         }
     }
 }
