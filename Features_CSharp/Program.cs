@@ -61,13 +61,13 @@ namespace Features_CSharp
 
             // Remove 
 
-            sb.Insert(5, 4);                            // Remove string from fifst index of length 4
+            sb.Remove(5, 4);                            // Remove string from fifst index of length 4
 
             // Replace
 
             sb.Replace("Hello", "Hi");                  // Replace 'Hello' with 'Hi' 
 
             Console.WriteLine(sb.ToString());
-;        }
+        }
     }
 }
