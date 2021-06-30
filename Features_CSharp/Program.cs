@@ -2,7 +2,6 @@
 
 namespace Features_CSharp
 {
-
     class Program
     {
         // Assignment is not necessary as 'yt' is a global variable
