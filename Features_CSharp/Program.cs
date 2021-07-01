@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace Features_CSharp
 {
@@ -42,6 +43,36 @@ namespace Features_CSharp
         }
     }
 
+    /*
+     * Applying class constraint means only a reference type can be passed as an argument
+     * while createing the DataStore class object. So, we can pass reference type such as 
+     * class, interface, delegate, or array type. Passing value type will give a compile 
+     * time error so we cannot pass primitive data types or struct types. 
+     */
+
+    class DataStore <T> where T : class
+    {
+        public T Data { get; set; }
+    }
+
+    /*
+     * struct constraint restricts type argument to be non-nullable value type only
+     */
+
+    class DataStore2 <T> where T : struct
+    {
+        public T Data { get; set; }
+    }
+
+    /*
+     * new() constraint restricts type argument to be non-nullable referece type only
+     */
+
+    class DataStore3 <T> where T : class, new()
+    {
+        public T Data { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -51,6 +82,8 @@ namespace Features_CSharp
              * 2. We define generics with type parameter which is a placeholder for a 
              *    perticular data type specified when creating an instance of the generic type.
              * 3. Generic fields in generic class cannot be initialized.
+             * 4. We can use generic constraints to restrict client code to specify certain types
+             *    while instantiating generic types.  
              */
 
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -72,6 +105,22 @@ namespace Features_CSharp
 
             Console.Write(data1["42"] + " ");
             Console.WriteLine(data1[data1[0].ToString()]);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            // Passaing reference type data type
+            DataStore <string> dataStore = new DataStore<string>();
+            dataStore.Data = "XC5522";
+            Console.WriteLine(dataStore.Data);
+
+            // Passing non-nullable value type data type
+
+            DataStore2<int> dataStore2 = new DataStore2<int>();
+            dataStore2.Data = 152;
+            Console.WriteLine(dataStore2.Data);
+
+            // Passing non-nullable reference type data type
+            DataStore3<ArrayList> dataStore3 = new DataStore3<ArrayList>();
 
             Console.ResetColor();
         }
