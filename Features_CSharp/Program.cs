@@ -39,8 +39,8 @@ namespace Features_CSharp
                 2. private: The code is only accessible within the same class 
                 3. protected: The code is accessible within the same class or
                    in a class that is inherited from that class. 
-                4. The code is only accessible within its own assembly, but not
-                   from another assembly
+                4. internal: The type or member can be accessed by any code in 
+                   the same assembly, but not from another assembly.
              */
 
             /*
@@ -51,6 +51,7 @@ namespace Features_CSharp
              * 2. Abstract class can have abstract or non-abstract methods. 
              * 3. It can't be instantiated, implementation must be provided by derived class
              */
+            
             IMPL imp = new IMPL(10, 5);
             imp.print();
         }
