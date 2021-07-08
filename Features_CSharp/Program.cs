@@ -15,7 +15,7 @@ namespace Features_CSharp
              * 7. Move selected code above/doewn (Alt + Up/Down)
              * 8. Select Code Vertically (Shift + Alt + Up/Down)
              * 9. Auto format code (Ctrl + K, D)
-             * 10. Comments selected code (Ctrl + K, S)
+             * 10. Comments selected code (Ctrl + K, Ctrl + C)
              * 11. #region (#region + Tab, Tab)
              * 12. Surround with region (Ctrl + K, S -> select #region) 
              * 13. Go to end bracket (Click on opening bracket -> Ctrl + ])
