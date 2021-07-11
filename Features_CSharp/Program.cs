@@ -44,6 +44,13 @@ namespace Features_CSharp
              *      a) It is an error to use the virtual modifier on a static property.
              *      b) A virtual inherited property can be overridden in a derived class by including 
              *         a property declaration that uses the override modifier. */
+
+            double r = 3.0, h = 5.0;
+            SHAPE c = new CIRCLE(r);
+            SHAPE s = new SPHERE(r);
+            // Display results.
+            Console.WriteLine("Area of Circle   = {0:F2}", c.Area());
+            Console.WriteLine("Area of Sphere   = {0:F2}", s.Area());
         }
     }
 }
