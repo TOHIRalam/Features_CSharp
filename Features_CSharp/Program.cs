@@ -37,8 +37,7 @@ namespace Features_CSharp
              * 3. out is used to state that the parameter passed must be modified by the method. 
              * 4. Both ref and in require the parameter to have been initialized before being p
              *    passed to a method. The out modifier does not require this and is typically not
-             *    initialized prior to being used in a method. 
-             */
+             *    initialized prior to being used in a method. */
 
             dynamic a = 10, b;
             ChangeValue(out a, out b);
