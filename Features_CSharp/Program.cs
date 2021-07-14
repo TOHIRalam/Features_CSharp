@@ -3,145 +3,61 @@ using System.Threading;
 
 namespace Features_CSharp
 {
-    class ThreadClass
+    class Maths
     {
-        public static void PrintThreadInfo()
+        public int Num1 { get; set; }
+        public int Num2 { get; set; }
+
+        Random rand = new Random();
+        public void Divide()
         {
-            for (int i = 0; i < 10; i++)
-                Console.Write("{0} ", i);
-            Console.WriteLine();
+            for (int i = 0; i < 100000; i++)
+            {
+                /* At the given moment of time only one thread can execute it.
+                   Without the lock keyword this program will return an exception
+                   because two threads - the main thread and the child thread will try 
+                   two execute the same program, where main thread will try to execute
+                   int result = Num1 / Num2 and the child thread will execute the lines 
+                   after that which are Num1 = 0 & Num2 = 0. Because of this main 
+                   thread will divide 0/0 which will throw the exception divide by zero. */
+
+                lock(this)
+                {
+                    Num1 = rand.Next(1, 2);
+                    Num2 = rand.Next(1, 2);
+                    int result = Num1 / Num2;
+                    Num1 = 0;
+                    Num2 = 0;
+                }
+            }
         }
     }
 
     class Program
     {
-        static void Function1()
-        {
-            for (var i = 1; i <= 10; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write($"{i} ");
-            }
-            Console.WriteLine("\nDone");
-        }
-
-        static void Function2()
-        {
-            for (var i = 1; i <= 10; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write($"{i} ");
-            }
-            Console.WriteLine("\nDone");
-        }
-
-        static void Function()
-        {
-            Console.WriteLine("Entered to the funciton");
-            Console.ReadLine();
-            Console.WriteLine("Exited the funciton");
-        }
-
         static void Main(string[] args)
         {
-            /* a) Thread is a basic unit of execution within the process, and it's responsible for executing the application logic.
-             * b) By default every application or program will carry one thread to execute the application logic, and that thread is
-             *    called the Main thread. So we can say that every program of application is by default a single-thread model.
-             * c) In C# we need to import System.Threading namespace in our program to work with threads. After importing System.Threading
-             *    namespace we can create or access the threading using Thread class. 
-             * d) In c#, the Main thread is responsible for executing the programming logic in a synchronous way that means one after another. 
-             *    If we want to execute the few tasks simultaneously (asynchronous way), we need to create the child threads in our application.
-             * e) There are two types of threads which are:-
-             *      (1) Foreground Thread: These threads will keep running until the last foreground thread is terminated. In another way, the 
-             *          application is closed when all the foreground threads are stopped. By default threads are foreground threads. We can
-             *          specify foreground threads for business critical tasks. A foreground thread is thread that has a high percentage of the
-             *          focus for any particular moment, this means that it spends more of its time executing.
-             *      (2) Background Thread: These threads will get terminated when all foreground threads are closed. The application won't 
-             *          wait for the background threads to complete. Background threads can be useful for polling services or logging services
-             *          which could be discontinued once the application closed. A background thread is a thread that doesn't have complete 
-             *          focus at the moment. By focus, we mean processor time. 
-             * 
-             * f) If we create any other threads in our program by using Thread class those will become child threads for the Main thread.
-             * g) If we want to access the Main thread that is executing the current program code, we can get it by using CurrentThread
-             *    property of the Thread class.
-             * h) Join(): It causes all the calling threads to wait until the current thread (joined thread) is terminated or completes its task.
-             * i) Abort(): The Abort() method is used to terminate the thread. It raises ThreadAbortException if Abort operation is not done.
-             *    
-             *    
-             *                                                             Thread Life Cycle
-             *                                                            -------------------
-             * # Each thread will have a life cycle, and it will start when we create an instance of the object using Thread class. Once the task
-             *   execution of the thread is completed, then the life cycle of the thread will get an end. States of thread life cycle:-
-             *          1) Unstarted: When we create the thread, that will be in the unstarted state.
-             *          2) Runnable: When we call the start() method, the thread will move to ready to run or Runnable() state.
-             *          3) Running: Only one thread within a process can be executed at a time. At the time of execution, thread is in 
-             *                      running state.It indicates that the thread is in a running state. 
-             *          4) Not Runnable: If the thread is in a not runnable state means there is a chance that the Sleep() or Wait() or Suspend()
-             *                           method is called on the thread or blocked by I/O operations.
-             *          5) Dead: If the thread is in a dead state, it means the thread completes its task execution or is aborted.      
-             *          
-             * @ Thread class, properties and methods:-
-             *      (1) https://www.javatpoint.com/c-sharp-thread-class
-             *      (2) https://www.tutlane.com/tutorial/csharp/csharp-threading
+            /* 1. Multithreading means executing multiple threads simultaneously to perform multiple tasks at a time.
+             * 2. When we start execution, the Main thread will create automatically, and it is responsible for executing
+             *    the programming logic in a sychronous way that means one after another. 
+             * 3. Synchronization is a technique that allows only one thread to access the resource for the particular 
+             *    time. No other thread can interrupt until the assigned thread finishes its task.
+             * 4. There are three synchronization techniques:- 
+             *          1) Lock: This allows only one thread to enter the part that's locked and the lock
+             *                    is not shared with any other processes. 
+             *          2) Mutex: A mutex is the same as a lock but can be system wide (shared by multiple processes).
+             *          3) Semaphore: A sepmaphore does the same as a mutex but allows n number of threads to enter, this
+             *                        can be used for example to limit the number of CPU, IO or ram intensive tasks
+             *                        running at the same time.
              */
 
-            #region Asynchronous Threading
-            /*
-            // Created two threads
-            Thread thread1 = new Thread(Function1);
-            Thread thread2 = new Thread(Function2);
+            // Thread threadObj = new Thread(new ThreadStart(new Maths().Divide));
 
-            // Invoke threads
-            thread1.Start();
-            thread2.Start();
-            */
-            #endregion
+            Maths maths = new Maths();
 
-            #region Foreground Thread
-
-            /*    Foreground Thread example     */
-
-            //Thread threadObject = new Thread(Function);
-            //threadObject.Start();
-
-            #endregion
-
-            #region Background Thread
-
-            /*    Background Thread example     */
-
-            //Thread threadObjectBackground = new Thread(Function);
-            //threadObjectBackground.IsBackground = true;
-            //threadObjectBackground.Start();
-
-            #endregion
-
-            #region Start a thread from a class
-
-            /* Start a thread from a class */
-
-            //Thread ThreadClassObject = new Thread(new ThreadStart(ThreadClass.PrintThreadInfo));
-            //new Thread(new ThreadStart(ThreadClass.PrintThreadInfo)).Start();
-            //new Thread(new ThreadStart(Function1)).Start();
-
-            #endregion
-
-            #region Thread Join() 
-
-            /* Thread Join() */
-
-            Thread t1 = new Thread(Function1);
-            Thread t2 = new Thread(Function2);
-
-            t1.Start();
-            t1.Join();
-            t2.Start();
-
-
-            #endregion
-
-            Console.WriteLine("The main application has exited.");
-            Console.ResetColor();
+            Thread threadObject = new Thread(maths.Divide);
+            threadObject.Start(); // Child thread
+            maths.Divide(); // Main thread
         }
     }
 }
