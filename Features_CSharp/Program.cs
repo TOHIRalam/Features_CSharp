@@ -6,15 +6,22 @@ namespace Features_CSharp
 {
     class Program
     {
-        public static void Method()
+        public static async void Method()
         {
-            Task.Run(new Action(LongTask));
+            // await: Wait at this line until LongTask finishes
+            await Task.Run(new Action(LongTask));
 
             // Wait until the long task finishes
             Console.WriteLine("New Thread");
         }
 
-        public static void LongTask() => Thread.Sleep(1000);
+        public static void LongTask()
+        {
+            Thread.Sleep(1200);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Long task finished");
+            Console.ResetColor();
+        }
 
         static void Main(string[] args)
         {
@@ -25,10 +32,12 @@ namespace Features_CSharp
              *    returns to the caller of the method, as the example in the next section shows.
              * 2. If the method that the async keyword modifies doesn't contain an await expression or 
              *    statement, the method executes synchronously. A compiler warning alerts you to any async 
-             *    methods that don't contain await statements, because that situation might indicate an error. */
+             *    methods that don't contain await statements, because that situation might indicate an error. 
+             * 3. We cannot use await without async or vise-versa, we have to use them in pair. */
 
             Method();
             Console.WriteLine("Main thread");
+            Console.ReadLine();
         }
     }
 }
