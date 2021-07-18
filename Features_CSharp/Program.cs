@@ -96,13 +96,13 @@ namespace Features_CSharp
             Console.WriteLine("\nWith the 'new' keyword\n");
 
             C c = new C();
-            c.Print();
+            c.Print();                   // From class A
 
             D d = new D();
-            d.Print();
+            d.Print();                   // From class B
 
             C cd = new D();
-            cd.Print();
+            cd.Print();                   // From class A
 
             #endregion
 
@@ -110,13 +110,13 @@ namespace Features_CSharp
             Console.WriteLine("\nWith Virtual & Override keyword\n");
 
             E e = new E();
-            e.Print();
+            e.Print();                   // From class A
 
             F f = new F();
-            f.Print();
+            f.Print();                   // From class B
 
             E ef = new F();
-            ef.Print();
+            ef.Print();                   // From class B
             #endregion
         }
     }
