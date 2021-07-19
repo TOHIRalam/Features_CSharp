@@ -9,7 +9,7 @@ namespace Features_CSharp
         static void Main(string[] args)
         {
             /*
-             * 1. Predicate is the delegate like Func and Action delegates.
+             * 1. Predicate is a delegate like Func and Action with small difference that it only returns Boolean. 
              * 2. It works with those methods which contain some set of criteria and determine 
              *    whether the passed parameter fulfill the given criteria or not.
              * 3. A predicate delegate methods must take one input parameter and return a boolean - true or false
