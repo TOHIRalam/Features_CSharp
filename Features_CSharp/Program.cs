@@ -107,8 +107,6 @@ namespace Features_CSharp
 
             var result = GetResult(Color.Blue, Brightness.VeryBright);
             Console.WriteLine($"Color {result}\nYou are going {ToOrientation(Direction.Left)} of the map");
-
-
         }
     }
 }
