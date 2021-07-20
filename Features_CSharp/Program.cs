@@ -40,7 +40,7 @@ namespace Features_CSharp
         static void Iterate_Above_2000(IEnumerator<int> iterator)
         {
             Console.WriteLine();
-            while(iterator.MoveNext())9
+            while(iterator.MoveNext())
                 Console.Write(iterator.Current.ToString() + " ");
             Console.WriteLine();
         }
