@@ -43,8 +43,7 @@ namespace Features_CSharp
       }
     }
 
-    // The Factory pattern to implement IoC of the above example. This is a simple implementation 
-    // of IoC and the first step towards achieving fully loose coupled design.
+    // The Factory pattern to implement IoC of the above example. This is a simple implementation of IoC and the first step towards achieving fully loose coupled design.
 
     public class DataAccess2 {
       public DataAccess2() { }
@@ -102,6 +101,9 @@ namespace Features_CSharp
                 Implement DIP by creating abstraction -> 
                 Implement DI -> Use IoC Container -> 
                 Loosely coupled classes
+
+
+                ## CHECK OUT THE DIP BRANCH TO SEE THE NEXT STEP (-->) ##
             */
         }
     }
