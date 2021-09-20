@@ -2,87 +2,82 @@
 
 namespace Features_CSharp
 {
+    // Constructor Injection
 
-    // The Factory pattern to implement IoC of the above example. 
-    // But it is still tightly coupled, even though we inverted the dependent object creation to the factory class.
-
-    public class DataAccess2 
+    public class CustomerBusinessLogic
     {
-      public DataAccess2() { }
+      ICustomerDataAccess _dataAccess;
 
-      public string GetCustomerName(int id) 
+      public CustomerBusinessLogic(ICustomerDataAccess custDataAccess)
       {
-        return "Dummy Customer Name";
+          _dataAccess = custDataAccess;
       }
-    }
-    
-    public class DataAccessFactory 
-    {
-      public static DataAccess2 GetDataAccessObj() => new DataAccess2();
-    }
 
-    public class CustomerBusinessLogic2 
-    {
-      public CustomerBusinessLogic2() {  }
-
-      public string GetCustomerName(int id) 
+      public CustomerBusinessLogic()
       {
-        DataAccess2 _dataAccess2 = DataAccessFactory.GetDataAccessObj();
-        return _dataAccess2.GetCustomerName(id);
+          _dataAccess = new CustomerDataAccess();
+      }
+
+      public string ProcessCustomerData(int id)
+      {
+          return _dataAccess.GetCustomerName(id);
       }
     }
 
-    /* DIP on the CustomerBusinessLogic and DataAccess classes and make them more loosely coupled. */
-
-    /*
-       The advantages of implementing DIP in the above example is that the CustomerBusinessLogic and CustomerDataAccess classes are loosely coupled classes because CustomerBusinessLogic does not depend on the concrete DataAccess class, instead it includes a reference of the ICustomerDataAccess interface. So now, we can easily use another class which implements ICustomerDataAccess with a different implementation.
-    */
-    public class IDataAcess 
-    { 
-      string GetCustomerName(int id);
+    public interface ICustomerDataAccess
+    {
+        string GetCustomerName(int id);
     }
 
-    public class DataAccess : IDataAcess 
+    public class CustomerDataAccess: ICustomerDataAccess
     {
-      public DataAccess() { }
+        public CustomerDataAccess()
+        {
+        }
 
-      public string GetCustomerName(int id) 
-      {
-        return "Dummy Customer Name";
-      }
+        public string GetCustomerName(int id) 
+        {
+            //get the customer name from the db in real application        
+            return "Dummy Customer Name"; 
+        }
     }
 
-    public class DataAccessFactory
+    public class CustomerService
     {
-      public static IDataAcess GetDataAccessObj() => new DataAccess();
-    }
+        CustomerBusinessLogic _customerBL;
 
-    public class CustomerBusinessLogic 
-    {
-      IDataAcess _dataAccess;
+        public CustomerService()
+        {
+            _customerBL = new CustomerBusinessLogic(new CustomerDataAccess());
+        }
 
-      public CustomerBusinessLogic() 
-      {
-        _dataAccess = DataAccessFactory.GetDataAccessObj();
-      }
-
-      public string GetCustomerName(int id) => _dataAccess.GetCustomerName(id);
+        public string GetCustomerName(int id) {
+            return _customerBL.ProcessCustomerData(id);
+        }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            /* DIP is one of the SOLID object-oriented principle invented by Robert Martin (a.k.a. Uncle Bob)
-            
-               DIP Definition
-               --------------
-                1. High-level modules should not depend on low-level modules, both should depend on the abstraction. 
-                2. Abstractions should not depend on details, details should be depend on abstractions.
+            /* Dependency Injection (DI)
+               -------------------------
+                Dependency Injection (DI) is a design pattern used to implement IoC. It allows the creation of dependent objects outside of a class and provides those objects to a class through different ways. Using DI, we move the creation and binding of the dependent objects outside of the class that depends on them.
 
-              Still, we have not achieved fully loosely coupled classes because the CustomerBusinessLogic class includes a factory class to get the reference of ICustomerDataAccess. This is where the Dependency Injection pattern helps us.
+              The Dependency Injection pattern involves 3 types of classes
+              ------------------------------------------------------------
+                1. Client Class: The client class (dependent class) is a class which depends on the service class
+                2. Service Class: The service class (dependency) is a class that provides service to the client class.
+                3. Injector Class: The injector class injects the service class object into the client class.
 
-                ## CHECK OUT THE DI BRANCH TO SEE THE NEXT STEP (-->) ##
+              Types of dependency injection
+              ------------------------------
+
+                1. Constructor Injection: In the constructor injection, the injector supplies the service (dependency) through the client class constructor.
+
+                2. Property Injection: In the property injection (aka the Setter Injection), the injector supplies the dependency through a public property of the client class.
+
+                3. Method Injection: In this type of injection, the client class implements an interface which declares the method(s) to supply the dependency and the injector uses this interface to supply the dependency to the client class.
             */
         }
     }
